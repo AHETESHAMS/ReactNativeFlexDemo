@@ -1,21 +1,29 @@
-import { StatusBar } from 'expo-status-bar';
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
-
-export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
-}
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+import { createAppContainer } from 'react-navigation';
+import { createStackNavigator } from 'react-navigation-stack';
+import HomeScreen from './src/screens/HomeScreen';
+import SecondScreen from './src/screens/SecondScreen';
+import ThirdScreen from './src/screens/ThirdScreen';
+import FourthScreen from './src/screens/FourthScreen';
+import Wave from './src/screens/Wave';
+// import SearchFilterScreen from './src/screens/SearchFilterScreen';
+import DemoScreen from './src/screens/DemoScreen';
+const navigator = createStackNavigator(
+  {
+    Home: HomeScreen,
+    SecondScreen:SecondScreen,
+    ThirdScreen: ThirdScreen,
+    Wave:Wave,
+    FourthScreen: FourthScreen,
+    // SearchFilterScreen: SearchFilterScreen,
+    Demo: DemoScreen
   },
-});
+  {
+    initialRouteName: 'ThirdScreen',
+    defaultNavigationOptions: {
+      title: 'App',
+      headerShown:null
+    },
+  }
+);
+
+export default createAppContainer(navigator);
