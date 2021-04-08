@@ -1,25 +1,36 @@
-import React from 'react';
-import {View,Text,StyleSheet} from 'react-native';
+import React, { useEffect, useState } from 'react';
+import {ActivityIndicator, FlatList, Text, View,StyleSheet } from 'react-native';
 
-const DemoScreen=()=> {
-    return(
-       <View style={{flex:1,justifyContent:'flex-end'}}>
-           <View style={{width:'100%',height:100,marginBottom:30,flexDirection:'row',justifyContent:'space-around'}}>
-               <View style={{width:100,height:100,backgroundColor:'orange',borderRadius:20}}></View>
-               <View style={{width:100,height:100,backgroundColor:'orange',borderRadius:20}}></View>
-               <View style={{width:100,height:100,backgroundColor:'orange',borderRadius:20}}></View>
-           </View>
-           <View style={{width:'100%',height:100,marginBottom:30,flexDirection:'row',justifyContent:'space-around'}}>
-             <View style={{width:100,height:100,backgroundColor:'orange',borderRadius:20}}></View>
-             <View style={{width:100,height:100,backgroundColor:'orange',borderRadius:20}}></View>
-           </View>
-       </View>
-    );
-   
-}
+const DemoScreen = () => {
+  const [isLoading, setLoading] = useState(true);
+  const [data, setData] = useState([]);
+  useEffect(() => {
+      console.log("Inside fun");
+    fetch('https://facebook.github.io/react-native/movies.json')
+      .then((response) => response.json())
+      .then((json) => setData(json))
+      .catch((error) => console.error(error))
+      .finally(() => setLoading(false));
+  } , []);
+  return (
+    <View style={{ flex: 1, padding: 24 }}>
+      {isLoading ? <View style={[styles.container, styles.horizontal]}>
+        <ActivityIndicator size='large' color="#999999" />
+         </View> : 
+      ( <View style={{ flex: 1, flexDirection: 'column', justifyContent:  'flex-start'}}>
+          <Text style={{ fontSize: 18, color: 'green', textAlign: 'center'}}>{data.title}</Text>
+          <Text style={{ fontSize: 14, color: 'green', textAlign: 'center', paddingBottom: 10}}>{data.description}</Text>
+        </View>
+      )}
+    </View>
+  );
+};
+
 
 const styles = StyleSheet.create({
-
-});
-
-export default DemoScreen;
+    container: {
+          flex: 1,
+          justifyContent: "center"
+        }
+})
+ export default DemoScreen;

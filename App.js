@@ -18,10 +18,10 @@ const navigator = createStackNavigator(
     Demo: DemoScreen
   },
   {
-    initialRouteName: 'ThirdScreen',
+    initialRouteName: 'Demo',
     defaultNavigationOptions: {
       title: 'App',
-      headerShown:null
+      // headerShown:null
     },
   }
 );
